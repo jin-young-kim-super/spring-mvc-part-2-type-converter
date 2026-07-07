@@ -1,0 +1,15 @@
+아래 예시에서 봤듯이 개발자가 일일이 형변환을 명시적으로 하면 지금이야 변수가 하나니깐 괜찮지만 클래스 객체의 형변환이라던지의 경우 코드가 매우 지저분해진다.    
+@GetMapping("/hello-v1")
+    public String helloV1(HttpServletRequest request) {
+        String data = request.getParameter("data");
+        Integer intValue = Integer.valueOf(data);
+        System.out.println("intValue = " + intValue);
+        return "ok";
+    }
+
+스프링은 개발자가 원하는 형변환 기능을 지원하기 위해 아래의 Converter 인터페이스를 지원한다. 개발자는 아래를 상속받아서 본인이 원하는 타입 컨버터를 만들어서 등록해서 사용을 할 수가 있다. 
+물론, 클래스와 클래스끼리의 형변환의 가능하다. 이 기능은 비단 클라이언트에서 보낸 데이터의 형변환 뿐 아니라 여러 곳에서도 재활용이 가능하다. 
+
+public interface Converter<S, T> {
+ T convert(S source);
+}
