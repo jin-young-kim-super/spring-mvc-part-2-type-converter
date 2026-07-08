@@ -1,6 +1,7 @@
 package hello.typeconverter.controller;
 
 
+import hello.typeconverter.type.IpPort;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,13 +20,20 @@ public class HelloController {
         return "ok";
     }
 
-    // 스프링 사용 버전(@RequestParam)
-    // -> 스프링이【문자열】인 쿼리 파마리터(쿼리 스트링)을 자동으로 int형으로 변환을 해줬다
-    // -> @ModelAttribute, @PathVariable에서도 똑같이 형변환을 스프링이 해준다.(@PathVariable도 다 문자열임에 주의하자)
-    // 클라이언트가 서버에 데이터를 넘기는 방법이 3가지 였다는 것을 떠올리자(1. 쿼리 스트링(@RequestParam), 2. HTML FORM(@ModelAttribute), 3. API )
+    // 사실 컨버터를 등록하기 전에도 이 부분은 잘 실행이 되었다. 왜냐하면 스프링은 이미 우리가 상상 가능한 모든 컨버터를
+    // 이미 등록시켜놨기 때문이다. 그러나 로그를 보면 알겠지만 우리가 만든 StringToInteger 컨버터가 작동한다.
+    // 그 이유는 스프링은 개발자가 직접 수동 등록한 컨버터를 우선순위에 두기 때문이다.
     @GetMapping("/hello-v2")
     public String helloV2(@RequestParam Integer data) {
         System.out.println("data = " + data);
         return "ok";
     }
+
+    @GetMapping("/ip-port")
+    public String ipPort(@RequestParam IpPort data) {
+        System.out.println("ip = " + data.getIp());
+        System.out.println("port = " + data.getPort());
+        return "ok";
+    }
+
 }
