@@ -18,8 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
         // -> MyNumberFormatter 또한 본질적으로는 String->Integer, Integer->String
         // 이기에 여기를 주석처리 하지 않으면 우선순위에 의해 MyNumberFormatter가 적용 안됨
 //        registry.addConverter(new StringToIntegerConverter());
-//        registry.addConverter(new StringToIpPortConverter());
-        registry.addConverter(new IntegerToStringConverter());
+        registry.addConverter(new StringToIpPortConverter());
+ //       registry.addConverter(new IntegerToStringConverter());
         registry.addConverter(new IpPortToStringConverter());
 
         // 이것 또한 역시 ConversionService에 등록이 된다.
